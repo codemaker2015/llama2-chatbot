@@ -22,17 +22,13 @@ REPLICATE_MODEL_ENDPOINT7B = os.environ.get('REPLICATE_MODEL_ENDPOINT7B', defaul
 REPLICATE_MODEL_ENDPOINT13B = os.environ.get('REPLICATE_MODEL_ENDPOINT13B', default='')
 REPLICATE_MODEL_ENDPOINT70B = os.environ.get('REPLICATE_MODEL_ENDPOINT70B', default='')
 PRE_PROMPT = "You are a helpful assistant. You do not respond as 'User' or pretend to be 'User'. You only respond once as Assistant."
-#Auth0 for auth
-AUTH0_CLIENTID = os.environ.get('AUTH0_CLIENTID', default='')
-AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN', default='')
 
-# if not (REPLICATE_API_TOKEN and REPLICATE_MODEL_ENDPOINT13B and REPLICATE_MODEL_ENDPOINT7B and 
-#         AUTH0_CLIENTID and AUTH0_DOMAIN):
-#     st.warning("Add a `.env` file to your app directory with the keys specified in `.env_template` to continue.")
-#     st.stop()
+if not (REPLICATE_API_TOKEN and REPLICATE_MODEL_ENDPOINT13B and REPLICATE_MODEL_ENDPOINT7B):
+    st.warning("Add a `.env` file to your app directory with the keys specified in `.env_template` to continue.")
+    st.stop()
 
 ###Initial UI configuration:###
-st.set_page_config(page_title="LLaMA2 Chatbot by a16z-infra", page_icon="🦙", layout="wide")
+st.set_page_config(page_title="LLaMA2 Chatbot", page_icon="🦙", layout="wide")
 
 def render_app():
 
@@ -129,10 +125,4 @@ def render_app():
         # Add assistant response to chat history
         st.session_state.chat_dialogue.append({"role": "assistant", "content": full_response})
 
-
-# if 'user_info' in st.session_state:
-# if user_info:
 render_app()
-# else:
-#     st.write("Please login to use the app. This is just to prevent abuse, we're not charging for usage.")
-#     st.session_state['user_info'] = login_button(AUTH0_CLIENTID, domain = AUTH0_DOMAIN)
